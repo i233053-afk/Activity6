@@ -3,7 +3,9 @@ name: Node.js CI Pipeline
 on:
   push:
     branches: [ "main" ]
-  workflow_dispatch:
+  # Optional: run nightly checks
+  schedule:
+    - cron: '0 0 * * *' # every midnight UTC
 
 jobs:
   test:
@@ -20,6 +22,8 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+        working-directory: backend
 
       - name: Run tests
         run: npm test
+        working-directory: backend
